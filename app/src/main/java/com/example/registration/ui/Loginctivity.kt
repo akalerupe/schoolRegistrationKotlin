@@ -1,5 +1,6 @@
 package com.example.registration.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -44,7 +45,9 @@ class Loginctivity : AppCompatActivity() {
             if (pswd.isEmpty()){
                 tilpassword.setError("This field is compulsory")
             }
+
         }
+
         val loginRequest=LoginRequest(
             email=email,password = pswd
         )
