@@ -63,10 +63,10 @@ val userViewModel:UserViewModel by viewModels()
            userViewModel.registerStudent(regRequest)
 
         }
-//        binding.btnnext.setOnClickListener {
-           var intent=Intent(baseContext,Loginctivity::class.java)
-           startActivity(intent)
-//       }
+////        binding.btnnext.setOnClickListener {
+//           var intent=Intent(baseContext,Loginctivity::class.java)
+//           startActivity(intent)
+////       }
     }
 
     override fun onResume() {
