@@ -1,6 +1,8 @@
 package com.example.registration.ui
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -9,6 +11,7 @@ import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
 import com.example.registration.API.ApiClient
 import com.example.registration.API.ApiInterface
+import com.example.registration.Constants
 import com.example.registration.ViewModel.UserViewModel
 import com.example.registration.databinding.ActivityMainBinding
 import com.example.registration.models.RegistrationRequest
@@ -19,14 +22,25 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 lateinit var binding:ActivityMainBinding
+lateinit var sharedPrefs:SharedPreferences
 val userViewModel:UserViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding= ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        sharedPrefs=getSharedPreferences(Constants.PREFS_FILE,Context.MODE_PRIVATE)
         setUpSpinner()
         onClick()
-
+        redirectUser()
+    }
+    fun redirectUser(){
+        var token = sharedPrefs.getString(Constants.ACCESS_TOKEN, Constants.EMPTY_STRING)
+        if (token!!.isNotEmpty()) {
+            startActivity(Intent(baseContext, codeHiveRegistration::class.java))
+        }
+        else{
+            startActivity(Intent(baseContext,Loginctivity::class.java))
+        }
     }
 
     fun setUpSpinner() {
@@ -63,10 +77,10 @@ val userViewModel:UserViewModel by viewModels()
            userViewModel.registerStudent(regRequest)
 
         }
-//        binding.btnnext.setOnClickListener {
+        binding.btnnext.setOnClickListener {
            var intent=Intent(baseContext,Loginctivity::class.java)
            startActivity(intent)
-//       }
+       }
     }
 
     override fun onResume() {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.registration">
+    package="com.example.registration" >
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,12 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Registration"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".ui.CoursesResponseActivity"
+            android:exported="true" />
         <activity
             android:name=".ui.Loginctivity"
             android:exported="true" />
         <activity android:name=".ui.codeHiveRegistration" />
-        <activity android:name=".ui.MainActivity">
+        <activity android:name=".ui.MainActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

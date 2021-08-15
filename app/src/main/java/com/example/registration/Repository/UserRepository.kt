@@ -2,6 +2,8 @@ package com.example.registration.Repository
 
 import com.example.registration.API.ApiClient
 import com.example.registration.API.ApiInterface
+import com.example.registration.models.LoginRequest
+import com.example.registration.models.LoginResponse
 import com.example.registration.models.RegistrationRequest
 import com.example.registration.models.RegistrationResponse
 import kotlinx.coroutines.Dispatchers
@@ -16,4 +18,11 @@ class UserRepository {
             var response=retrofit.registerStudent(registrationRequest)
             return@withContext response
         }
+
+    suspend fun logInStudent(loginRequest: LoginRequest):Response<LoginResponse> =
+    withContext(Dispatchers.IO){
+        var response =retrofit.logInStudent(loginRequest)
+        return@withContext response
+    }
+    
 }
