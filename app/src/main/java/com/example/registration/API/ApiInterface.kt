@@ -1,10 +1,12 @@
 package com.example.registration.API
 
-import com.example.registration.models.*
+import com.example.registration.models.LoginRequest
+import com.example.registration.models.LoginResponse
+import com.example.registration.models.RegistrationRequest
+import com.example.registration.models.RegistrationResponse
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
-import retrofit2.http.Header
 import retrofit2.http.POST
 
 interface ApiInterface {
@@ -12,10 +14,7 @@ interface ApiInterface {
 
  suspend fun registerStudent(@Body registrationRequest: RegistrationRequest):Response<RegistrationResponse>
 
-@POST("/students/login")
- suspend fun logInStudent(@Body loginRequest: LoginRequest):Response<LoginResponse>
-
- @POST("/courses")
-suspend fun fetchCourses(@Header("Authorization")token:String):Response<List<CoursesResponse>>
+@POST("/students/register")
+fun logInStudent(@Body loginRequest: LoginRequest):Call<LoginResponse>
 
 }
