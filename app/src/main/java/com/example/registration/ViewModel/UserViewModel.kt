@@ -28,9 +28,9 @@ class UserViewModel:ViewModel() {
             }
         }
     }
-    fun logStudentIn(loginRequest: LoginRequest){
+    fun logStudentIn(loginResponse: LoginResponse){
 viewModelScope.launch {
-    var response=userRepository.logInStudent(loginRequest)
+    var response=userRepository.logInStudent(loginResponse)
     if (response.isSuccessful){
         logInResponseLiveData.postValue(response.body())
     }

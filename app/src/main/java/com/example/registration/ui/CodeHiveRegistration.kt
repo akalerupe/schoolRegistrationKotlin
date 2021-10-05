@@ -47,6 +47,7 @@ class codeHiveRegistration : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+//        coursesViewModel.getDbCourses()
         coursesViewModel.courseResponseLiveData.observe(this,{CoursesResponse ->
             var accessToken = sharedPrefs.getString(Constants.toString(),"ACCESS_TOKEN")
             var bearer = "Bearer $accessToken"

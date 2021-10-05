@@ -13,15 +13,16 @@ import retrofit2.Response
 class UserRepository {
 //    make the API call and return the response.
     var retrofit=ApiClient.buildApiClient(ApiInterface::class.java)
+
    suspend fun registerUser(registrationRequest: RegistrationRequest): Response<RegistrationResponse> =
         withContext(Dispatchers.IO){
             var response=retrofit.registerStudent(registrationRequest)
             return@withContext response
         }
 
-    suspend fun logInStudent(loginRequest: LoginRequest):Response<LoginResponse> =
+    suspend fun logInStudent(loginResponse: LoginResponse):Response<LoginResponse> =
     withContext(Dispatchers.IO){
-        var response =retrofit.logInStudent(loginRequest)
+        var response =retrofit.logInStudent(loginResponse)
         return@withContext response
     }
     

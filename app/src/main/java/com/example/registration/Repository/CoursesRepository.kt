@@ -1,20 +1,32 @@
 package com.example.registration.Repository
 
+import androidx.lifecycle.LiveData
 import com.example.registration.API.ApiClient
 import com.example.registration.API.ApiInterface
-import com.example.registration.models.CoursesRequest
-import com.example.registration.models.CoursesResponse
-import com.example.registration.models.RegistrationRequest
-import com.example.registration.models.RegistrationResponse
+import com.example.registration.CodeHiveDatabase
+import com.example.registration.CodeHiveRegApplication
+import com.example.registration.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class CoursesRepository {
     var coursesInterface=ApiClient.buildApiClient(ApiInterface::class.java)
-    suspend fun coursesList(accessToken:String): Response<List<CoursesResponse>> =
+    val db=CodeHiveDatabase.getDatabase(CodeHiveRegApplication.appContext)
+    suspend fun coursesList(accessToken:String){
       withContext(Dispatchers.IO){
           var response=coursesInterface.fetchCourses(accessToken)
-          return@withContext response
+          val dao=db.getAllCourses()
+          response.body()?.forEach{ course ->
+              dao.insertCourse(course)
+          }
+//          return@withContext response
       }
+    fun getCoursesfromDb():LiveData<List<Course>>{
+        return db.getAllCourses().getAllCourses()
+    }
+
+    }
+
+
 }
