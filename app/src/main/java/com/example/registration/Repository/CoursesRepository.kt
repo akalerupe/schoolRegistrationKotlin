@@ -5,25 +5,24 @@ import com.example.registration.API.ApiClient
 import com.example.registration.API.ApiInterface
 import com.example.registration.CodeHiveDatabase
 import com.example.registration.CodeHiveRegApplication
+import com.example.registration.Database.CoursesDao
 import com.example.registration.models.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
+import javax.inject.Inject
 
-class CoursesRepository {
-    var coursesInterface=ApiClient.buildApiClient(ApiInterface::class.java)
-    val db=CodeHiveDatabase.getDatabase(CodeHiveRegApplication.appContext)
+class CoursesRepository @Inject constructor(var service:ApiInterface, val coursesDao: CoursesDao) {
+//    val db=CodeHiveDatabase.getDatabase(CodeHiveRegApplication.appContext)
     suspend fun coursesList(accessToken:String){
       withContext(Dispatchers.IO){
-          var response=coursesInterface.fetchCourses(accessToken)
-          val dao=db.getAllCourses()
+          var response=service.fetchCourses(accessToken)
           response.body()?.forEach{ course ->
-              dao.insertCourse(course)
+              coursesDao.insertCourse(course)
           }
-//          return@withContext response
       }
     fun getCoursesfromDb():LiveData<List<Course>>{
-        return db.getAllCourses().getAllCourses()
+        return coursesDao.getAllCourses()
     }
 
     }

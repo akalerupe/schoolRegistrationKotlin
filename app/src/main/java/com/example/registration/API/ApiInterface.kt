@@ -13,7 +13,7 @@ interface ApiInterface {
 
  suspend fun registerStudent(@Body registrationRequest: RegistrationRequest):Response<RegistrationResponse>
 
-@POST("/students/register")
+@POST("/students/login")
 fun logInStudent(@Body loginRequest: LoginRequest):Call<LoginResponse>
 
 

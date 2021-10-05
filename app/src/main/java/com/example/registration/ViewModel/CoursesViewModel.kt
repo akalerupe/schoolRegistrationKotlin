@@ -7,11 +7,14 @@ import androidx.lifecycle.viewModelScope
 import com.example.registration.Repository.CoursesRepository
 import com.example.registration.Repository.UserRepository
 import com.example.registration.models.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
+@HiltViewModel
 
-class CoursesViewModel:ViewModel() {
+class CoursesViewModel@Inject constructor(coursesRepository: CoursesRepository):ViewModel() {
     lateinit var coursesLiveData: LiveData<List<Course>>
-    var coursesRepository = CoursesRepository()
+//    var coursesRepository = CoursesRepository()
     var courseResponseLiveData = MutableLiveData<List<CoursesResponse>>()
     var courseErrorLiveData = MutableLiveData<String>()
 
@@ -26,9 +29,9 @@ class CoursesViewModel:ViewModel() {
 
 
         }
-        fun getDbCourses() {
-            coursesLiveData = coursesRepository.getCoursesfromDb()
-        }
+//        fun getDbCourses() {
+//            coursesLiveData = coursesRepository.getCoursesfromDb()
+//        }
     }
 
 }
